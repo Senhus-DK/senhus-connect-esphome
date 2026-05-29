@@ -1,26 +1,59 @@
-# Senhus Connect ESPHome
+# Senhus Connect for Panasonic AC
 
-ESPHome firmware configs for Senhus Connect devices.
+This guide shows how to add a Senhus Connect Panasonic AC device to ESPHome and flash it to an ESP32.
 
-## Panasonic AC
+## Choose Your Device Version
 
-- `acr-pa.yaml`: Panasonic AC V1, UART TX on GPIO4 and RX on GPIO3.
-- `acr-pa-v2.yaml`: Panasonic AC V2, UART TX on GPIO3 and RX on GPIO4.
+There are two hardware versions.
 
-Both variants include:
+| Version | Use this file | UART pins |
+| --- | --- | --- |
+| V1 | `acr-pa.yaml` | TX GPIO4, RX GPIO3 |
+| V2 | `acr-pa-v2.yaml` | TX GPIO3, RX GPIO4 |
 
-- ESPHome Dashboard adoption through `dashboard_import`
-- mDNS discovery
-- Captive portal fallback
-- Home Assistant/Web Server controls to save new Wi-Fi credentials while the device is still online
+If you are not sure which version you have, check the product label or documentation from Senhus.
 
-Use the file that matches the hardware revision when flashing or adopting the device.
+## Before You Start
 
-## Add in ESPHome Dashboard
+You need:
 
-Users do not need to download these YAML files manually. In ESPHome Dashboard, create a new device and replace the generated config with one of these package imports.
+- ESPHome Dashboard
+- An ESP32 connected by USB for the first flash
+- Your Wi-Fi name and password
+- The correct device version, V1 or V2
 
-For Panasonic AC V1:
+## Step 1: Add Your Wi-Fi Secrets
+
+In ESPHome Dashboard, open **Secrets** or edit `secrets.yaml`.
+
+Add your Wi-Fi details:
+
+```yaml
+wifi_ssid: "Your WiFi Name"
+wifi_password: "Your WiFi Password"
+```
+
+Example:
+
+```yaml
+wifi_ssid: "Home WiFi"
+wifi_password: "my-wifi-password"
+```
+
+These secrets stay in your own ESPHome installation. They are not uploaded to this GitHub repository.
+
+## Step 2: Create The Device In ESPHome
+
+In ESPHome Dashboard:
+
+1. Click **New Device**.
+2. Click **Continue**.
+3. Give the device a name.
+4. Choose your ESP32 board if ESPHome asks.
+5. Open the YAML editor.
+6. Replace the generated YAML with the config for your device version.
+
+For V1:
 
 ```yaml
 packages:
@@ -31,7 +64,7 @@ wifi:
   password: !secret wifi_password
 ```
 
-For Panasonic AC V2:
+For V2:
 
 ```yaml
 packages:
@@ -42,8 +75,51 @@ wifi:
   password: !secret wifi_password
 ```
 
-Then click **Install** and choose USB for the first flash. After the first flash, future updates can usually be installed wirelessly.
+## Step 3: Flash The Device
 
-If the first flash does not include Wi-Fi credentials, wait about 90 seconds after boot and connect to the `SenhusConnect` Wi-Fi hotspot. Open `http://192.168.4.1` and enter the normal Wi-Fi credentials there.
+1. Connect the ESP32 by USB.
+2. Click **Install** in ESPHome Dashboard.
+3. Choose the USB/serial option.
+4. Wait for the flash to finish.
+5. Keep the device powered while it connects to Wi-Fi.
 
-Already-flashed devices advertise a dashboard import URL, so ESPHome Dashboard can discover them and offer adoption when they are online on the same network. They also support Improv over USB serial for Wi-Fi provisioning.
+After the first successful flash, future updates can usually be installed wirelessly from ESPHome Dashboard.
+
+## If The Device Does Not Show Up
+
+If the device was flashed without Wi-Fi credentials, it cannot join your network yet.
+
+Wait about 90 seconds after boot, then look for a Wi-Fi hotspot named:
+
+```text
+SenhusConnect
+```
+
+Connect to that hotspot and open:
+
+```text
+http://192.168.4.1
+```
+
+Enter your normal Wi-Fi name and password. After the device joins your Wi-Fi, ESPHome Dashboard should be able to find it.
+
+The firmware also supports Improv over USB serial, so compatible ESPHome tools can send Wi-Fi credentials over USB.
+
+## Changing Wi-Fi Later
+
+Once the device is online, it exposes these configuration controls:
+
+- `WiFi SSID`
+- `WiFi Password`
+- `Save WiFi Credentials`
+
+Enter the new Wi-Fi name and password, then press **Save WiFi Credentials**. The new credentials are stored on the device and will be used the next time it reconnects or restarts.
+
+## ESPHome Dashboard Discovery
+
+The firmware advertises itself with mDNS and ESPHome dashboard import information. When the device is online on the same network, ESPHome Dashboard can discover it and offer adoption.
+
+If adoption is offered, choose the matching device version:
+
+- V1 uses `acr-pa.yaml`
+- V2 uses `acr-pa-v2.yaml`
