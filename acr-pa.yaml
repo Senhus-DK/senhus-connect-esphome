@@ -1,0 +1,136 @@
+esp32:
+  board: esp32-c3-devkitm-1
+  variant: ESP32C3
+  framework:
+    type: esp-idf
+
+esphome:
+  name: "senhus-connect-pac"
+  friendly_name: "Senhus Connect - Panasonic AC"
+  name_add_mac_suffix: True
+  platformio_options:
+    board_build.flash_mode: dio
+  project: 
+    name: Senhus.connect-pac
+    version: connect-pac
+
+safe_mode: 
+  boot_is_good_after: 0s
+  num_attempts: 255
+  reboot_timeout: 0s
+
+wifi:
+  #ssid: !secret wifi_ssid
+  #password: !secret wifi_password
+  power_save_mode: NONE
+  output_power: 10dB
+
+  ap:
+    ssid: "SenhusConnect"
+
+logger:
+  level: DEBUG
+
+api:
+
+ota:
+  platform: esphome
+  
+
+captive_portal:
+
+web_server:
+  port: 80
+
+uart:
+  tx_pin: ${uart_tx_pin}
+  rx_pin: ${uart_rx_pin}
+  baud_rate: 9600
+  parity: EVEN
+
+external_components:
+  source: github://DomiStyle/esphome-panasonic-ac
+  components: [panasonic_ac]
+
+
+climate:
+  - platform: panasonic_ac
+    # For CZ-TACG1
+    type: cnt
+
+    # For DNSK-P11
+    # type: wlan
+
+    name: Panasonic AC
+    horizontal_swing_select:
+      name: Horizontal Swing Mode
+    vertical_swing_select:
+      name: Vertical Swing Mode
+    outside_temperature:
+      name: Outside Temperature
+    eco_switch:
+     name: Panasonic AC Eco Switch
+    econavi_switch:
+     name: Panasonic AC Econavi Switch
+    nanoex_switch:
+      name: NanoeX Switch
+    mild_dry_switch:
+      name: Panasonic AC Mild Dry Switch
+    current_power_consumption:
+      name: Power Consumption
+    # current_temperature_sensor: temperature_sensor_id
+
+button:
+  - platform: template
+    name: Save WiFi Credentials
+    icon: mdi:content-save
+    entity_category: config
+    on_press:
+      - lambda: |-
+          const auto ssid = id(new_wifi_ssid).state;
+          const auto password = id(new_wifi_password).state;
+          if (ssid.empty()) {
+            ESP_LOGW("wifi_config", "SSID is empty; not saving WiFi credentials");
+            return;
+          }
+          wifi::global_wifi_component->save_wifi_sta(ssid, password);
+          ESP_LOGI("wifi_config", "Saved WiFi credentials for SSID '%s'", ssid.c_str());
+
+  - platform: restart
+    icon: mdi:power-cycle
+    name: "ESP Reboot"
+  - platform: factory_reset
+    name: Factory Reset
+    id: factory_reset_all
+substitutions:
+  uart_tx_pin: GPIO4
+  uart_rx_pin: GPIO3
+
+text:
+  - platform: template
+    id: new_wifi_ssid
+    name: WiFi SSID
+    icon: mdi:wifi
+    mode: text
+    min_length: 1
+    max_length: 32
+    optimistic: true
+    restore_value: true
+    entity_category: config
+  - platform: template
+    id: new_wifi_password
+    name: WiFi Password
+    icon: mdi:form-textbox-password
+    mode: password
+    min_length: 0
+    max_length: 64
+    optimistic: true
+    restore_value: false
+    entity_category: config
+
+dashboard_import:
+  package_import_url: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
+  import_full_config: false
+
+mdns:
+  disabled: false
