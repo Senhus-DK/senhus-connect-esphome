@@ -85,6 +85,58 @@ wifi:
 
 After the first successful flash, future updates can usually be installed wirelessly from ESPHome Dashboard.
 
+## Updating From Older Firmware
+
+If your Senhus Connect device already has older ESPHome firmware installed, you can move to this new GitHub-based setup without erasing the device.
+
+### If The Device Is Already In ESPHome Dashboard
+
+1. Open the existing device in ESPHome Dashboard.
+2. Open its YAML editor.
+3. Replace the old YAML with the matching package config.
+
+For V1:
+
+```yaml
+packages:
+  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+```
+
+For V2:
+
+```yaml
+packages:
+  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa-v2.yaml@main
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+```
+
+4. Click **Install**.
+5. Choose **Wirelessly** if ESPHome can reach the device.
+6. If wireless install fails, connect the device by USB and install over USB instead.
+
+### If The Device Is Not In ESPHome Dashboard
+
+If the device is online but not listed in ESPHome Dashboard:
+
+1. Create a new device in ESPHome Dashboard.
+2. Use the matching V1 or V2 package config from above.
+3. Click **Install**.
+4. Choose a wireless/manual OTA option if ESPHome can find the device by name or IP.
+5. If that does not work, install over USB.
+
+### After Updating
+
+After the new firmware is installed, the device will advertise itself with ESPHome discovery and dashboard import information. Future setup and adoption should be easier from ESPHome Dashboard.
+
+The update keeps the normal ESPHome behavior: Wi-Fi credentials already stored on the device may continue to work, but adding the `wifi` section with `!secret` values is recommended so future flashes include the correct Wi-Fi credentials.
+
 ## If The Device Does Not Show Up
 
 If the device was flashed without Wi-Fi credentials, it cannot join your network yet.
