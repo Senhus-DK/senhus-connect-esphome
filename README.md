@@ -25,6 +25,10 @@ For Panasonic AC V1:
 ```yaml
 packages:
   senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
 ```
 
 For Panasonic AC V2:
@@ -32,8 +36,14 @@ For Panasonic AC V2:
 ```yaml
 packages:
   senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa-v2.yaml@main
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
 ```
 
 Then click **Install** and choose USB for the first flash. After the first flash, future updates can usually be installed wirelessly.
 
-Already-flashed devices advertise a dashboard import URL, so ESPHome Dashboard can discover them and offer adoption when they are online on the same network.
+If the first flash does not include Wi-Fi credentials, wait about 90 seconds after boot and connect to the `SenhusConnect` Wi-Fi hotspot. Open `http://192.168.4.1` and enter the normal Wi-Fi credentials there.
+
+Already-flashed devices advertise a dashboard import URL, so ESPHome Dashboard can discover them and offer adoption when they are online on the same network. They also support Improv over USB serial for Wi-Fi provisioning.

@@ -39,6 +39,8 @@ ota:
 
 captive_portal:
 
+improv_serial:
+
 web_server:
   port: 80
 
