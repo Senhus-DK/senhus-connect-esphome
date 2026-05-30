@@ -103,27 +103,30 @@ Wait about 90 seconds after boot, then look for the `SenhusConnect` Wi-Fi hotspo
 
 The firmware also supports Improv over USB serial, so compatible ESPHome tools can send Wi-Fi credentials over USB.
 
-## File Overview
+## Using These YAML Files
 
-| File | Purpose |
-| --- | --- |
-| `acr-pa.yaml` | Main ESPHome firmware config for Senhus Connect Panasonic AC migration devices. |
-| `acr-pa-v2.yaml` | ESPHome firmware config for V2 hardware. |
-| `README.md` | Migration instructions and release notes. |
+These YAML files can also be used as a starting point for your own ESPHome setup.
 
-## Release Log
+For the standard Senhus Connect Panasonic AC migration, use:
 
-### 2026-05-31
+```yaml
+packages:
+  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
+```
 
-- Updated migration instructions for devices built before June 2026.
-- Added USB and wireless-by-IP migration options.
-- Added Wi-Fi secrets setup instructions.
-- Added file overview.
+If you want to build your own firmware from this, copy the package example into your own ESPHome device YAML and add your own extra ESPHome components below it.
 
-### 2026-05-30
+Example:
 
-- Added public ESPHome package configs for Senhus Connect Panasonic AC.
-- Added V1 and V2 firmware variants.
-- Added ESPHome Dashboard import metadata.
-- Added mDNS discovery support.
-- Added captive portal and Improv serial provisioning support.
+```yaml
+packages:
+  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+# Add your own ESPHome configuration below this line.
+```
+
+For custom hardware, check the UART pins before flashing. The Panasonic AC connection depends on the correct TX and RX pins.
