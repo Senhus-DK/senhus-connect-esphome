@@ -2,7 +2,7 @@
 
 This guide is for updating Senhus Connect Panasonic AC devices built before June 2026 from older firmware to the current ESPHome firmware.
 
-## Migration Overview
+## Migration Guide
 
 If your device has older firmware, update it over USB using ESPHome Dashboard.
 
@@ -102,3 +102,28 @@ If the device was flashed without Wi-Fi credentials, it cannot join your network
 Wait about 90 seconds after boot, then look for the `SenhusConnect` Wi-Fi hotspot and enter Wi-Fi credentials through `http://192.168.4.1`.
 
 The firmware also supports Improv over USB serial, so compatible ESPHome tools can send Wi-Fi credentials over USB.
+
+## File Overview
+
+| File | Purpose |
+| --- | --- |
+| `acr-pa.yaml` | Main ESPHome firmware config for Senhus Connect Panasonic AC migration devices. |
+| `acr-pa-v2.yaml` | ESPHome firmware config for V2 hardware. |
+| `README.md` | Migration instructions and release notes. |
+
+## Release Log
+
+### 2026-05-31
+
+- Updated migration instructions for devices built before June 2026.
+- Added USB and wireless-by-IP migration options.
+- Added Wi-Fi secrets setup instructions.
+- Added file overview.
+
+### 2026-05-30
+
+- Added public ESPHome package configs for Senhus Connect Panasonic AC.
+- Added V1 and V2 firmware variants.
+- Added ESPHome Dashboard import metadata.
+- Added mDNS discovery support.
+- Added captive portal and Improv serial provisioning support.
