@@ -1,34 +1,10 @@
 # Senhus Connect for Panasonic AC
 
-This guide is for Senhus Connect Panasonic AC devices.
+This guide is for updating Senhus Connect Panasonic AC devices from older firmware to the current ESPHome firmware.
 
-If your device was delivered with the new Senhus ESPHome firmware already installed, you do not need to create an ESPHome YAML file or flash the device yourself. Start with **Set Up A New Pre-Flashed Device**.
+If your device was delivered with the current Senhus firmware already installed, use the normal Senhus getting started guide instead.
 
-Use the ESPHome flashing steps only if you are updating a device with older firmware or flashing the firmware yourself.
-
-## Set Up A New Pre-Flashed Device
-
-1. Power on the Senhus Connect device.
-2. Wait about 90 seconds.
-3. Look for a Wi-Fi hotspot named:
-
-```text
-SenhusConnect
-```
-
-4. Connect your phone or computer to the `SenhusConnect` hotspot.
-5. Open:
-
-```text
-http://192.168.4.1
-```
-
-6. Enter your normal Wi-Fi name and password.
-7. Wait for the device to connect to your Wi-Fi.
-
-After the device joins your Wi-Fi, it can be found by ESPHome/Home Assistant on the same network.
-
-## Updating From Older Firmware
+## Migration Overview
 
 If your device has older firmware, update it over USB using ESPHome Dashboard.
 
