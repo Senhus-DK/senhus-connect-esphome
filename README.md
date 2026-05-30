@@ -105,7 +105,7 @@ The firmware also supports Improv over USB serial, so compatible ESPHome tools c
 
 ## Using These YAML Files
 
-These YAML files can also be used as a starting point for your own ESPHome setup.
+These YAML files can also be used as a starting point for your own device made from scratch, or if you wish to reflash the Panasonic Connect.
 
 For the standard Senhus Connect Panasonic AC migration, use:
 
