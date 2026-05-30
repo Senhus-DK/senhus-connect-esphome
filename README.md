@@ -2,8 +2,6 @@
 
 This guide is for updating Senhus Connect Panasonic AC devices built before June 2026 from older firmware to the current ESPHome firmware.
 
-If your device was delivered with the current Senhus firmware already installed, use the normal Senhus getting started guide instead.
-
 ## Migration Overview
 
 If your device has older firmware, update it over USB using ESPHome Dashboard.
@@ -13,17 +11,6 @@ You need:
 - ESPHome Dashboard
 - A USB cable
 - Your Wi-Fi name and password
-
-## Check Your Device
-
-This migration guide is mainly for V1 devices.
-
-| Device | How to identify it | What to do |
-| --- | --- | --- |
-| V1 | The cable is not detachable | Use this migration guide |
-| V2 | The cable is detachable | Use the normal Senhus getting started guide |
-
-V2 devices already ship with the current Senhus ESPHome firmware, so they normally do not need this migration.
 
 ## Step 1: Add Your Wi-Fi Secrets
 
@@ -65,12 +52,6 @@ packages:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-```
-
-The V2 package is kept in this repository for factory builds, recovery reflashing, and support cases. V2 users should not normally need it for migration.
-
-```text
-github://Senhus-DK/senhus-connect-esphome/acr-pa-v2.yaml@main
 ```
 
 ### Wireless Install By IP
