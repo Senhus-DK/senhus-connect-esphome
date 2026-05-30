@@ -55,9 +55,9 @@ In ESPHome Dashboard:
 3. Give the device a name.
 4. Choose your ESP32 board if ESPHome asks.
 5. Open the YAML editor.
-6. Replace the generated YAML with the config for your device version.
+6. Replace the generated YAML with the config for your device version and install method.
 
-For V1:
+### V1, Install Over USB
 
 ```yaml
 packages:
@@ -68,7 +68,21 @@ wifi:
   password: !secret wifi_password
 ```
 
-For V2:
+### V1, Install Wirelessly By IP
+
+Use this if the old firmware is already online and supports ESPHome wireless updates. Replace `192.168.1.123` with the current IP address of the device.
+
+```yaml
+packages:
+  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  use_address: 192.168.1.123
+```
+
+### V2, Install Over USB
 
 ```yaml
 packages:
@@ -79,15 +93,40 @@ wifi:
   password: !secret wifi_password
 ```
 
-## Step 3: Flash Over USB
+### V2, Install Wirelessly By IP
+
+Use this if the old firmware is already online and supports ESPHome wireless updates. Replace `192.168.1.123` with the current IP address of the device.
+
+```yaml
+packages:
+  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa-v2.yaml@main
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  use_address: 192.168.1.123
+```
+
+## Step 3: Install The Firmware
+
+1. Click **Install** in ESPHome Dashboard.
+2. Choose the install method that matches your config.
+3. For USB, connect the device by USB and choose the USB/serial option.
+4. For wireless install, choose the wireless option and make sure the target IP address is correct.
+5. Wait for the install to finish.
+6. Keep the device powered while it connects to Wi-Fi.
+
+This replaces the old firmware with the new GitHub-based ESPHome firmware.
+
+## USB Fallback
+
+If wireless install fails, install over USB instead.
 
 1. Connect the device by USB.
 2. Click **Install** in ESPHome Dashboard.
 3. Choose the USB/serial option.
 4. Wait for the flash to finish.
 5. Keep the device powered while it connects to Wi-Fi.
-
-This replaces the old firmware with the new GitHub-based ESPHome firmware.
 
 After the first successful flash, future updates can usually be installed wirelessly from ESPHome Dashboard.
 
