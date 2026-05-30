@@ -1,6 +1,6 @@
 # Senhus Connect for Panasonic AC
 
-This guide is for updating Senhus Connect Panasonic AC devices from older firmware to the current ESPHome firmware.
+This guide is for updating Senhus Connect Panasonic AC devices built before June 2026 from older firmware to the current ESPHome firmware.
 
 If your device was delivered with the current Senhus firmware already installed, use the normal Senhus getting started guide instead.
 
@@ -13,18 +13,17 @@ You need:
 - ESPHome Dashboard
 - A USB cable
 - Your Wi-Fi name and password
-- Your hardware version, V1 or V2
 
-## Choose Your Device Version
+## Check Your Device
 
-There are two hardware versions.
+This migration guide is mainly for V1 devices.
 
-| Version | How to identify it | Use this file |
+| Device | How to identify it | What to do |
 | --- | --- | --- |
-| V1 | The cable is not detachable | `acr-pa.yaml` |
-| V2 | The cable is detachable | `acr-pa-v2.yaml` |
+| V1 | The cable is not detachable | Use this migration guide |
+| V2 | The cable is detachable | Use the normal Senhus getting started guide |
 
-If you are not sure which version you have, check the product label or documentation from Senhus.
+V2 devices already ship with the current Senhus ESPHome firmware, so they normally do not need this migration.
 
 ## Step 1: Add Your Wi-Fi Secrets
 
@@ -57,28 +56,21 @@ In ESPHome Dashboard:
 5. Open the YAML editor.
 6. Replace the generated YAML with the config below.
 
-Use the package URL that matches your hardware version:
-
-| Version | Package URL |
-| --- | --- |
-| V1 | `github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main` |
-| V2 | `github://Senhus-DK/senhus-connect-esphome/acr-pa-v2.yaml@main` |
-
 Basic config:
 
 ```yaml
 packages:
-  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa-v2.yaml@main
+  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 ```
 
-The example above uses V2. For V1, replace the package URL with:
+The V2 package is kept in this repository for factory builds, recovery reflashing, and support cases. V2 users should not normally need it for migration.
 
 ```text
-github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
+github://Senhus-DK/senhus-connect-esphome/acr-pa-v2.yaml@main
 ```
 
 ### Wireless Install By IP
@@ -89,7 +81,7 @@ Replace `192.168.1.123` with the current IP address of the device.
 
 ```yaml
 packages:
-  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa-v2.yaml@main
+  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
 
 wifi:
   ssid: !secret wifi_ssid
