@@ -55,34 +55,16 @@ In ESPHome Dashboard:
 3. Give the device a name.
 4. Choose your ESP32 board if ESPHome asks.
 5. Open the YAML editor.
-6. Replace the generated YAML with the config for your device version and install method.
+6. Replace the generated YAML with the config below.
 
-### V1, Install Over USB
+Use the package URL that matches your hardware version:
 
-```yaml
-packages:
-  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
+| Version | Package URL |
+| --- | --- |
+| V1 | `github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main` |
+| V2 | `github://Senhus-DK/senhus-connect-esphome/acr-pa-v2.yaml@main` |
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-```
-
-### V1, Install Wirelessly By IP
-
-Use this if the old firmware is already online and supports ESPHome wireless updates. Replace `192.168.1.123` with the current IP address of the device.
-
-```yaml
-packages:
-  senhus_pac: github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
-
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  use_address: 192.168.1.123
-```
-
-### V2, Install Over USB
+Basic config:
 
 ```yaml
 packages:
@@ -93,9 +75,17 @@ wifi:
   password: !secret wifi_password
 ```
 
-### V2, Install Wirelessly By IP
+The example above uses V2. For V1, replace the package URL with:
 
-Use this if the old firmware is already online and supports ESPHome wireless updates. Replace `192.168.1.123` with the current IP address of the device.
+```text
+github://Senhus-DK/senhus-connect-esphome/acr-pa.yaml@main
+```
+
+### Wireless Install By IP
+
+If the old firmware is already online and supports ESPHome wireless updates, add `use_address` under `wifi`.
+
+Replace `192.168.1.123` with the current IP address of the device.
 
 ```yaml
 packages:
@@ -106,6 +96,8 @@ wifi:
   password: !secret wifi_password
   use_address: 192.168.1.123
 ```
+
+For USB install, do not add `use_address`.
 
 ## Step 3: Install The Firmware
 
