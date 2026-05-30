@@ -4,14 +4,6 @@ This guide is for updating Senhus Connect Panasonic AC devices built before June
 
 ## Migration Guide
 
-If your device has older firmware, update it over USB using ESPHome Dashboard.
-
-You need:
-
-- ESPHome Dashboard
-- A USB cable
-- Your Wi-Fi name and password
-
 ## Step 1: Add Your Wi-Fi Secrets
 
 In ESPHome Dashboard, open **Secrets** or edit `secrets.yaml`.
