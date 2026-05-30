@@ -1,6 +1,43 @@
 # Senhus Connect for Panasonic AC
 
-This guide shows how to add a Senhus Connect Panasonic AC device to ESPHome and flash it to an ESP32.
+This guide is for Senhus Connect Panasonic AC devices.
+
+If your device was delivered with the new Senhus ESPHome firmware already installed, you do not need to create an ESPHome YAML file or flash the device yourself. Start with **Set Up A New Pre-Flashed Device**.
+
+Use the ESPHome flashing steps only if you are updating a device with older firmware or flashing the firmware yourself.
+
+## Set Up A New Pre-Flashed Device
+
+1. Power on the Senhus Connect device.
+2. Wait about 90 seconds.
+3. Look for a Wi-Fi hotspot named:
+
+```text
+SenhusConnect
+```
+
+4. Connect your phone or computer to the `SenhusConnect` hotspot.
+5. Open:
+
+```text
+http://192.168.4.1
+```
+
+6. Enter your normal Wi-Fi name and password.
+7. Wait for the device to connect to your Wi-Fi.
+
+After the device joins your Wi-Fi, it can be found by ESPHome/Home Assistant on the same network.
+
+## Updating From Older Firmware
+
+If your device has older firmware, update it over USB using ESPHome Dashboard.
+
+You need:
+
+- ESPHome Dashboard
+- A USB cable
+- Your Wi-Fi name and password
+- Your hardware version, V1 or V2
 
 ## Choose Your Device Version
 
@@ -12,15 +49,6 @@ There are two hardware versions.
 | V2 | `acr-pa-v2.yaml` | TX GPIO3, RX GPIO4 |
 
 If you are not sure which version you have, check the product label or documentation from Senhus.
-
-## Before You Start
-
-You need:
-
-- ESPHome Dashboard
-- An ESP32 connected by USB for the first flash
-- Your Wi-Fi name and password
-- The correct device version, V1 or V2
 
 ## Step 1: Add Your Wi-Fi Secrets
 
@@ -75,45 +103,22 @@ wifi:
   password: !secret wifi_password
 ```
 
-## Step 3: Flash The Device
+## Step 3: Flash Over USB
 
-1. Connect the ESP32 by USB.
+1. Connect the device by USB.
 2. Click **Install** in ESPHome Dashboard.
 3. Choose the USB/serial option.
 4. Wait for the flash to finish.
 5. Keep the device powered while it connects to Wi-Fi.
 
-After the first successful flash, future updates can usually be installed wirelessly from ESPHome Dashboard.
-
-## Updating From Older Firmware
-
-If your Senhus Connect device already has older firmware installed, follow the same steps above and flash the new firmware over USB.
-
-1. Add your Wi-Fi secrets.
-2. Create a new device in ESPHome Dashboard.
-3. Use the matching V1 or V2 package config.
-4. Connect the ESP32 by USB.
-5. Click **Install**.
-6. Choose the USB/serial option.
-
 This replaces the old firmware with the new GitHub-based ESPHome firmware.
+
+After the first successful flash, future updates can usually be installed wirelessly from ESPHome Dashboard.
 
 ## If The Device Does Not Show Up
 
 If the device was flashed without Wi-Fi credentials, it cannot join your network yet.
 
-Wait about 90 seconds after boot, then look for a Wi-Fi hotspot named:
-
-```text
-SenhusConnect
-```
-
-Connect to that hotspot and open:
-
-```text
-http://192.168.4.1
-```
-
-Enter your normal Wi-Fi name and password. After the device joins your Wi-Fi, ESPHome Dashboard should be able to find it.
+Wait about 90 seconds after boot, then look for the `SenhusConnect` Wi-Fi hotspot and enter Wi-Fi credentials through `http://192.168.4.1`.
 
 The firmware also supports Improv over USB serial, so compatible ESPHome tools can send Wi-Fi credentials over USB.
