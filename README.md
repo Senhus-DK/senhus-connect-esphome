@@ -19,10 +19,10 @@ You need:
 
 There are two hardware versions.
 
-| Version | Use this file | UART pins |
+| Version | How to identify it | Use this file |
 | --- | --- | --- |
-| V1 | `acr-pa.yaml` | TX GPIO4, RX GPIO3 |
-| V2 | `acr-pa-v2.yaml` | TX GPIO3, RX GPIO4 |
+| V1 | The cable is not detachable | `acr-pa.yaml` |
+| V2 | The cable is detachable | `acr-pa-v2.yaml` |
 
 If you are not sure which version you have, check the product label or documentation from Senhus.
 
