@@ -105,8 +105,8 @@ button:
     name: Factory Reset
     id: factory_reset_all
 substitutions:
-  uart_tx_pin: GPIO4
-  uart_rx_pin: GPIO3
+  uart_tx_pin: GPIO3
+  uart_rx_pin: GPIO4
 
 text:
   - platform: template
